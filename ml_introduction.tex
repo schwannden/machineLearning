@@ -1,0 +1,64 @@
+
+\section{Machine Learning: The problem}
+
+In this section we look at machine learning in the most abstract sense, giving this lecture an overview of the problem we will be solving.
+
+\subsection{Problem definition}
+If we know there exists a function $y: \mathbb{A} \to \mathbb{T}$, such that $t = y(x)$ for $x \in \mathbb{A}$ and $t \in  \mathbb{T}$, and we are given $x_1, ..., x_n \in \mathbb{A}$ and the corresponding results $t_1, ..., t_n \in \mathbb{T}$, such that $t_i = y(x_i)$, how do we guess the most probable function $y$?
+
+\textbf{Definition: training set} let $ \underline{x} = \begin{bmatrix} x_1 \\ \vdots \\ x_n \end{bmatrix} \in \mathbb{A}^n$ and $ \underline{t} = \begin{bmatrix} t_1 \\ \vdots \\ t_n \end{bmatrix} \in \mathbb{T}^n$. We call $(\underline{x}, \underline{t})$ the training set.
+
+With above definition, we can further simplify machine learning problem as follows
+
+\textbf{Definition: problem definition} If we know there exists a function $y: \mathbb{A} \to  \mathbb{T}$, but we don't know its definitive form. Then given training set $(\underline{x}, \underline{t})$, how do we best approximate $y$.
+
+\subsection{Regression as an Example}
+If the last section is too abstract for you, let's use regression as an example to clarify. In regression, we seek to find a function that best predict the behaviour future data based on observed data. Usually this function is governed by a set of \textbf{parameters} $\underline{\theta} = \begin{bmatrix} \theta_1 \\ \vdots \\ \theta_n \end{bmatrix} \in \Theta$. We call $\Theta$ the \textbf{parameter space}.
+
+How we obtain the function from $\underline{\theta}$, and the constraint on $\underline{\theta}$ (i.e, the set $\Theta$) governs the set of possible functions. We call the set of all possible functions \textbf{model}.
+
+For example, in linear regression, the set of all functions $y$ such that
+$$y(x) = \sum_{i=1}^n w_i x^i, \underline{w} = \begin{bmatrix} w_1 \\ \vdots \\ w_n \end{bmatrix} \in \mathbb{R}^n$$
+constitutes the model. 
+
+In this case, the parameters are $\begin{bmatrix} w_1 \\ \vdots \\ w_n \end{bmatrix}$, the parameter space is $\mathbb{R}^n$, and the model is
+$$\Big\{ y: \mathbb{R} \to \mathbb{R} \Big| y(x) = \sum_{i=1}^n w_i x^i, \underline{w} \in \mathbb{R}^n \Big\}$$
+
+\textbf{Remark 1}: Parameters $\underline{\theta}$ are \textbf{not} the domain of the function. Parameters are used to generate a function.
+
+\textbf{Remark 2} Model is the set of all possible solutions, and recall from our problem definition, the solution is a \textbf{function}. So our model is a set of functions.
+
+\subsection{More on solution space}
+The constraints on solution space (model) plays a fundamental role in the quality of our solution. This has been a known issue since your high school. For example, lets look at the following three problems:
+\begin{enumerate}
+\item Find $x$ such that $x^2 = 2$
+\item Find $x$ such that $x^2 = -1$
+\item Find the maximum number in the set $\{ x | x^2 \leq 2 \}$
+\end{enumerate}
+
+In each problem, we obtains different solution when solution space (model) is constrained differently.
+
+\begin{center}
+    \begin{tabular}{| l | l | l | l |}
+    \hline
+    solution space & $x \in $ integer & $x \in $ rational number & $x \in $ real number \\ \hline
+    problem 1 & no solution & no solution & $\sqrt{2}, -\sqrt{2}$ \\ \hline
+    problem 2 & no solution & no solution & no solution \\ \hline
+    problem 3 & 1 & no solution & $\sqrt{2}$ \\
+    \hline
+    \end{tabular}
+\end{center}
+
+This issue becomes particularly important in machine learning, as we are not finding an exact solution. We are finding a function based on past data that can best predict future data, and our data has noise. Therefore if the solution too accurately fit the observed data (with noise), we might not predict future data well (therefore we might want to sparse out our solution space). This is called over fitting.
+
+On the other hand, if your solution space (model) is too small, we might not find a good solution (see problem 3 when x is constrained in integer).
+
+The challenge of machine learning therefore can be three fold:
+
+\begin{enumerate}
+\item How to define our model?
+\item How do we find the solution in this model
+\item How do you know if is a good solution? How do we define good?
+\end{enumerate}
+
+\pagebreak
